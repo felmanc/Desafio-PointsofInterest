@@ -25,6 +25,6 @@ spring:
 #    org:
 #      hibernate:
 #        SQL: DEBUG
-3        type:
+#        type:
 #          descriptor:
 #            sql: TRACE
