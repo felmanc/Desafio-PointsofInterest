@@ -20,6 +20,11 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
 
+server:
+  error:
+    include-stacktrace: never
+  port: 8080
+
 #logging:
 #  level:
 #    org:
