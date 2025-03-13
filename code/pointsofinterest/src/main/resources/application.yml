@@ -20,11 +20,11 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
 
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql: TRACE
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+3        type:
+#          descriptor:
+#            sql: TRACE
