@@ -16,20 +16,20 @@ public class PointOfInterestEntity implements Serializable{
 
   private static final long serialVersionUID = 1L;
 
-    @Id // Presumindo que a tabela tem uma chave primária
+    @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id") // Coluna de identificação, se existir
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome", nullable = false) // Mapeando a coluna "nome"
+    @Column(name = "nome", nullable = false)
     @NotNull
     private String nome;
 
-	@Column(name = "x", nullable = false) // Mapeando a coluna "x"
+	@Column(name = "x", nullable = false)
     @NotNull
     private Long x;
 
-    @Column(name = "y", nullable = false) // Mapeando a coluna "y"
+    @Column(name = "y", nullable = false)
     @NotNull
     private Long y;
 
