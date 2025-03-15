@@ -2,7 +2,6 @@ package br.com.felmanc.pointsofinterest.dtos;
 
 public class PointOfInterestDTO {
 
-    private Long id;
     private String nome;
     private Long x;
     private Long y;
@@ -10,22 +9,13 @@ public class PointOfInterestDTO {
     // Construtores
     public PointOfInterestDTO() {}
 
-    public PointOfInterestDTO(Long id, String nome, Long x, Long y) {
-        this.id = id;
+    public PointOfInterestDTO(String nome, Long x, Long y) {
         this.nome = nome;
         this.x = x;
         this.y = y;
     }
 
     // Getters e Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getNome() {
         return nome;
     }
