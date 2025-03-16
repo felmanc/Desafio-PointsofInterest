@@ -36,22 +36,34 @@ public class PointOfInterestController {
 		this.pointOfInterestService = pointOfInterestService;
 	}
 
-    @Operation(summary = "Exibir estatísticas das transações")
+    @Operation(summary = "Show nearest points of interest")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Estatísticas calculadas com sucesso")
     })    
-    @GetMapping
+    @GetMapping("/near")
     public List<PointOfInterestDTO> getPointsOfInterest(
             @RequestParam("x") Long xReferencia,
             @RequestParam("y") Long yReferencia,
             @RequestParam("dMax") Double distMax) {
         logger.info("Recebendo solicitação para listar pontos de interesse. Referência: x={}, y={}, distância máxima={}", 
                      xReferencia, yReferencia, distMax);
-        List<PointOfInterestDTO> response = pointOfInterestService.getPointsOfInterestDTO(xReferencia, yReferencia, distMax);
+        List<PointOfInterestDTO> response = pointOfInterestService.getNearPointsOfInterestDTO(xReferencia, yReferencia, distMax);
         logger.info("Número de pontos de interesse retornados: {}", response.size());
         return response;
     }
 
+    @Operation(summary = "Show all points of interest")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Estatísticas calculadas com sucesso")
+    })    
+    @GetMapping("/all")
+    public List<PointOfInterestDTO> getAllPointsOfInterest() {
+        logger.info("Recebendo solicitação para listar todos os pontos de interesse.");
+        List<PointOfInterestDTO> response = pointOfInterestService.getAllPointsOfInterestDTO();
+        logger.info("Número de pontos de interesse retornados: {}", response.size());
+        return response;
+    }
+    
     @Operation(summary = "Create a new point of interest")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "Created",

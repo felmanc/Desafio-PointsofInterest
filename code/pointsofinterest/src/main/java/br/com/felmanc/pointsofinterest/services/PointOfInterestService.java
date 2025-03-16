@@ -28,7 +28,7 @@ public class PointOfInterestService {
 		this.pointOfInterestMapper = pointOfInterestMapper;
 	}
 
-    public List<PointOfInterestDTO> getPointsOfInterestDTO(Long xReferencia, Long yReferencia, Double dMax) {
+    public List<PointOfInterestDTO> getNearPointsOfInterestDTO(Long xReferencia, Long yReferencia, Double dMax) {
         logger.info("Obtendo pontos de interesse com referência: x={}, y={}, distância máxima={}", xReferencia, yReferencia, dMax);
 
         // Validação para garantir que xReferencia, yReferencia e dMax não sejam nulos
@@ -41,6 +41,16 @@ public class PointOfInterestService {
         List<PointOfInterestEntity> points = pointOfInterestRepository.findWithinDistance(xReferencia, yReferencia, dMax);
         logger.debug("Número de pontos encontrados: {}", points.size());
         
+        return points.stream().map(pointOfInterestMapper::toDto).collect(Collectors.toList());
+    }
+    
+    public List<PointOfInterestDTO> getAllPointsOfInterestDTO() {
+    	logger.info("Obtendo todos os pontos de interesse existentes");
+
+    	List<PointOfInterestEntity> points = pointOfInterestRepository.findAll();
+    	
+        logger.debug("Número de pontos encontrados: {}", points.size());
+    	
         return points.stream().map(pointOfInterestMapper::toDto).collect(Collectors.toList());
     }
 
