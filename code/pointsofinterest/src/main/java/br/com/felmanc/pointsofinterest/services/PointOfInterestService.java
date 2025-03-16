@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.com.felmanc.pointsofinterest.dtos.PointOfInterestDTO;
 import br.com.felmanc.pointsofinterest.entities.PointOfInterestEntity;
 import br.com.felmanc.pointsofinterest.exceptions.TransacaoInvalidaException;
+import br.com.felmanc.pointsofinterest.mappers.PointOfInterestMapper;
 import br.com.felmanc.pointsofinterest.repositories.PointOfInterestRepository;
 
 @Service
@@ -19,9 +20,13 @@ public class PointOfInterestService {
 
     private PointOfInterestRepository pointOfInterestRepository;
 
-    public PointOfInterestService(PointOfInterestRepository pointOfInterestRepository) {
-        this.pointOfInterestRepository = pointOfInterestRepository;
-    }
+    private PointOfInterestMapper pointOfInterestMapper;
+    
+    public PointOfInterestService(PointOfInterestRepository pointOfInterestRepository,
+			PointOfInterestMapper pointOfInterestMapper) {
+		this.pointOfInterestRepository = pointOfInterestRepository;
+		this.pointOfInterestMapper = pointOfInterestMapper;
+	}
 
     public List<PointOfInterestDTO> getPointsOfInterestDTO(Long xReferencia, Long yReferencia, Double dMax) {
         logger.info("Obtendo pontos de interesse com referência: x={}, y={}, distância máxima={}", xReferencia, yReferencia, dMax);
@@ -36,12 +41,7 @@ public class PointOfInterestService {
         List<PointOfInterestEntity> points = pointOfInterestRepository.findWithinDistance(xReferencia, yReferencia, dMax);
         logger.debug("Número de pontos encontrados: {}", points.size());
         
-        return points.stream().map(this::convertToDTO).collect(Collectors.toList());
-    }
-
-    private PointOfInterestDTO convertToDTO(PointOfInterestEntity point) {
-        logger.debug("Convertendo PointOfInterestEntity para PointOfInterestDTO: {}", point.getNome());
-        return new PointOfInterestDTO(point.getNome(), point.getX(), point.getY());
+        return points.stream().map(pointOfInterestMapper::toDto).collect(Collectors.toList());
     }
 
     public PointOfInterestEntity addPointOfInterest(PointOfInterestDTO poiDTO) {
