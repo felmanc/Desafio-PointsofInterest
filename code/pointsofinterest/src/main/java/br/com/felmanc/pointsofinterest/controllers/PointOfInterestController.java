@@ -1,4 +1,4 @@
-package br.com.felmanc.pointsofinterest.controller;
+package br.com.felmanc.pointsofinterest.controllers;
 
 import java.util.List;
 
